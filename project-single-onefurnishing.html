@@ -31,6 +31,7 @@
 
     <!-- All CSS Here
     ================================================== -->
+    <link rel="stylesheet" href="assets/css/Custom.css">
     <link rel="stylesheet" href="assets/css/fontAwesome5Pro.css">
     <link rel="stylesheet" href="assets/css/cdheadline.css">
     <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
@@ -453,115 +454,138 @@
             </div>
             <!-- Nav/Navigation End -->
 
-
-            <?php
-            include "config.php";
-
-            $mysql = "
-                SELECT 
-                    p.project_id, 
-                    p.project_name, 
-                    p.description,
-                    p.project_type,
-                    p.client,
-                    p.start_date,
-                    p.end_date,
-                    GROUP_CONCAT(DISTINCT i.image_path ORDER BY i.image_id ASC) AS images,
-                    GROUP_CONCAT(DISTINCT t.technology_name ORDER BY t.technology_id ASC) AS technologies
-                FROM Projects p
-                LEFT JOIN Images i ON p.project_id = i.project_id
-                LEFT JOIN ProjectTechnologies pt ON p.project_id = pt.project_id
-                LEFT JOIN Technologies t ON pt.technology_id = t.technology_id
-                GROUP BY p.project_id
-                ORDER BY p.created_at DESC";
-            $result = mysqli_query($conn, $mysql);
-            ?>
-
             <!-- Main Content Start -->
             <div class="relative mx-auto minfo__contentBox max-w-container xl:max-2xl:max-w-65rem">
 
                 <!-- Project Details Section Start -->
                 <div class="py-3.5 max-w-content xl:max-2xl:max-w-50rem max-xl:mx-auto xl:ml-auto">
 
-                    <div class="c-projects-det-main px-5 py-8 md:p-8 bg-white dark:bg-nightBlack rounded-2xl lg:p-10 2xl:p-13">
+                    <div class="px-5 py-8 md:p-8 bg-white dark:bg-nightBlack rounded-2xl lg:p-10 2xl:p-13">
                         <div
                             class="inline-flex items-center gap-2 px-4 py-2 text-xs tracking-wide text-black dark:text-white border lg:px-5 section-name border-platinum dark:border-greyBlack200 rounded-4xl">
                             <i class="fal fa-tasks-alt text-theme"></i>
-                            PORTFOLIO
+                            Project Details
                         </div>
 
-                        <?php
-                        if (mysqli_num_rows($result) > 0) {
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                $images = explode(',', $row['images']);
-                                $technologies = explode(',', $row['technologies']);
+                        <h2
+                            class="text-2xl font-semibold leading-normal text-black dark:text-white mt-7 lg:mt-10 article-title lg:text-3xl lg:leading-normal">
+                            One Furnishing
+                        </h2>
+                        <div class="mb-4 overflow-hidden mt-7 xl:my-8 thumb rounded-xl xl:rounded-2xl">
+                            <img src="assets/img/projects-images/burgeria/img-01.png" class="w-full"
+                                alt="Project Thumbnail Image">
+                        </div>
+                        <div class="post-meta sm:flex items-center justify-between my-8 mb-10 max-sm:space-y-3.5">
+                            <div>
+                                <h6 class="text-black dark:text-white">CLIENT</h6>
+                                <p class="text-regular">One Furnishing</p>
+                            </div>
+                            <div>
+                                <h6 class="text-black dark:text-white">DURATION</h6>
+                                <p class="text-regular">02 Weeks</p>
+                            </div>
+                            <div>
+                                <h6 class="text-black dark:text-white">TECHNOLOGIES</h6>
+                                <p class="text-regular">Wordpress, HTML, CSS & Javascript</p>
+                            </div>
+                        </div>
 
-                                // Calculate duration in hours
-                                $start_date = new DateTime($row['start_date']);
-                                $end_date = new DateTime($row['end_date']);
-                                $interval = $start_date->diff($end_date);
-                                $hours = ($interval->days * 24) + $interval->h + ($interval->i / 60);
-                        ?>
-                        <!-- Project Card -->
-                        <div class="c-project-card d-flex px-4 py-2 border border-platinum dark:border-greyBlack200 rounded-2xl">
-                            <div class="c-project-img mb-4 overflow-hidden mt-7 xl:my-8 thumb rounded-xl xl:rounded-2xl">
-                                <?php foreach ($images as $image) { ?>
-                                    <img src="<?php echo htmlspecialchars($image); ?>" class="w-full" alt="Project Thumbnail Image">
-                                <?php } ?>
+
+                        <div>
+                            <h3 class="mb-3 text-lg font-medium text-black dark:text-white xl:text-2xl">Project Description</h3>
+                            <p class="text-regular !leading-[2]">
+                                Web Description
+                            </p>
+                            <ul class="text-regular !leading-[2] list-disc ml-6 my-4">
+                                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do</li>
+                                <li>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris</li>
+                                <li>Excepteur sint occaecat cupidatat non proident, sunt in culpa</li>
+                            </ul>
+
+                            <div class="grid gap-5 my-8 sm:grid-cols-2 md:gap-8">
+                                <div class="overflow-hidden rounded-xl xl:rounded-2xl">
+                                    <img src="assets/img/projects-images/onefurnishing/img-02.png" class="w-full"
+                                        alt="Project Inner Colum Image">
+                                </div>
+                                <div class="overflow-hidden rounded-xl xl:rounded-2xl">
+                                    <img src="assets/img/projects-images/onefurnishing/img-02.png" class="w-full"
+                                        alt="Project Inner Colum Image">
+                                </div>
                             </div>
 
-                            <div class="c-content-sec">
-                                <h2 class="text-2xl font-semibold leading-normal text-black dark:text-white mt-7 lg:mt-10 article-title lg:text-3xl lg:leading-normal">
-                                    <a href="project-single.php?id=<?php echo $row['project_id']; ?>"><?php echo htmlspecialchars($row['project_name']); ?></a>
-                                </h2>
-                                <h3>
-                                    <?php echo htmlspecialchars($row['project_type']); ?>
-                                </h3>
-                                <div>
-                                    <p class="text-regular !leading-[2]">
-                                        <?php
-                                        $description = $row['description'];
-                                        $word_limit = 20; // Set your word limit here
-
-                                        $words = explode(' ', $description);
-                                        if (count($words) > $word_limit) {
-                                            $limited_description = implode(' ', array_slice($words, 0, $word_limit)) . '...';
-                                        } else {
-                                            $limited_description = $description;
-                                        }
-
-                                        echo htmlspecialchars($limited_description);
-                                        ?>
-                                    </p>
+                            <h3 class="mt-12 mb-10 text-2xl font-medium text-black dark:text-white">Technologies</h3>
+                            <div class="progressbar-wrap space-y-7">
+                                <div class="flex flex-wrap items-center gap-5 progressbar">
+                                    <div class="w-8 icon">
+                                        <img src="assets/img/skill/html.svg" alt="HTML5">
+                                    </div>
+                                    <div class="flex-1 bar" data-percentage="90%">
+                                        <h5 class="mb-2 text-black dark:text-white progress-title-holder text-regular">
+                                            <span class="progress-title">HTML5</span>
+                                        </h5>
+                                        <div class="progress-outer bg-platinum dark:bg-greyBlack h-1.5 rounded-2xl">
+                                            <div class="progress-content bg-theme h-1.5 w-0 rounded-2xl"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="post-meta sm:flex items-center justify-between my-8 mb-10 max-sm:space-y-3.5">
-                                    <div>
-                                        <h6 class="text-black dark:text-white">CLIENT</h6>
-                                        <p class="text-regular"><?php echo htmlspecialchars($row['client']); ?></p>
+                                <div class="flex flex-wrap items-center gap-5 progressbar">
+                                    <div class="w-8 icon">
+                                        <img src="assets/img/skill/css.svg" alt="CSS3">
                                     </div>
-                                    <div>
-                                        <h6 class="text-black dark:text-white">DURATION</h6>
-                                        <p class="text-regular"><?php echo intval($hours) . ' hours'; ?></p>
+                                    <div class="flex-1 bar" data-percentage="80%">
+                                        <h5 class="mb-2 text-black dark:text-white progress-title-holder text-regular">
+                                            <span class="progress-title">CSS3</span>
+                                        </h5>
+                                        <div class="progress-outer bg-platinum dark:bg-greyBlack h-1.5 rounded-2xl">
+                                            <div class="progress-content bg-theme h-1.5 w-0 rounded-2xl"></div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <h6 class="text-black dark:text-white">TECHNOLOGIES</h6>
-                                        <p class="text-regular"><?php echo htmlspecialchars(implode(', ', $technologies)); ?></p>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-5 progressbar">
+                                    <div class="w-8 icon">
+                                        <img src="assets/img/skill/js.svg" alt="javascript">
+                                    </div>
+                                    <div class="flex-1 bar" data-percentage="60%">
+                                        <h5 class="mb-2 text-black dark:text-white progress-title-holder text-regular">
+                                            <span class="progress-title">javascript</span>
+                                        </h5>
+                                        <div class="progress-outer bg-platinum dark:bg-greyBlack h-1.5 rounded-2xl">
+                                            <div class="progress-content bg-theme h-1.5 w-0 rounded-2xl"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-5 progressbar">
+                                    <div class="w-8 icon">
+                                        <img src="assets/img/skill/tailwind.svg" alt="TailwindCSS">
+                                    </div>
+                                    <div class="flex-1 bar" data-percentage="90%">
+                                        <h5 class="mb-2 text-black dark:text-white progress-title-holder text-regular">
+                                            <span class="progress-title">TailwindCSS</span>
+                                        </h5>
+                                        <div class="progress-outer bg-platinum dark:bg-greyBlack h-1.5 rounded-2xl">
+                                            <div class="progress-content bg-theme h-1.5 w-0 rounded-2xl"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-5 progressbar">
+                                    <div class="w-8 icon">
+                                        <img src="assets/img/skill/figma.svg" alt="TailwindCSS">
+                                    </div>
+                                    <div class="flex-1 bar" data-percentage="80%">
+                                        <h5 class="mb-2 text-black dark:text-white progress-title-holder text-regular">
+                                            <span class="progress-title">Figma</span>
+                                        </h5>
+                                        <div class="progress-outer bg-platinum dark:bg-greyBlack h-1.5 rounded-2xl">
+                                            <div class="progress-content bg-theme h-1.5 w-0 rounded-2xl"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <?php
-                            }
-                        } else {
-                            echo "<p>No projects found.</p>";
-                        }
-                        ?>
                     </div>
 
                 </div>
                 <!-- Project Details Section End -->
-
-
                 <!-- Footer Start -->
                 <footer class="py-6 text-center lg:ml-auto footer-section max-w-content xl:max-2xl:max-w-50rem">
                     <p class="">
@@ -577,72 +601,73 @@
     <!-- App End -->
 
 
-    <!-- Background Line and Animation -->
-    <div
-        class="bg-lines fixed inset-0 -z-1 md:max-xl:max-w-[45rem] xl:max-w-60rem 2xl:max-w-container mx-auto max-sm:px-8 sm:max-xl:px-12">
-        <div class="line-wrapper max-w-[1130px] w-full h-full ml-auto 2xl:-mr-24 relative flex justify-between">
+<!-- Background Line and Animation -->
+<div
+class="bg-lines fixed inset-0 -z-1 md:max-xl:max-w-[45rem] xl:max-w-60rem 2xl:max-w-container mx-auto max-sm:px-8 sm:max-xl:px-12">
+<div class="line-wrapper max-w-[1130px] w-full h-full ml-auto 2xl:-mr-24 relative flex justify-between">
 
-            <div
-                class="relative w-px h-full border-r border-dashed line line1 border-slate-300 dark:border-metalBlack before:absolute before:w-2 before:h-2 before:bg-theme before:rotate-45 before:-left-1 before:animate-top_bottom">
-            </div>
+<div
+class="relative w-px h-full border-r border-dashed line line1 border-slate-300 dark:border-metalBlack before:absolute before:w-2 before:h-2 before:bg-theme before:rotate-45 before:-left-1 before:animate-top_bottom">
+</div>
 
-            <div
-                class="relative w-px h-full border-r border-dashed line line2 border-slate-300 dark:border-metalBlack before:absolute before:bottom-0 before:w-2 before:h-2 before:bg-theme before:rotate-45 before:-left-1 before:animate-bottom_top before:animate-delay-3s">
-            </div>
+<div
+class="relative w-px h-full border-r border-dashed line line2 border-slate-300 dark:border-metalBlack before:absolute before:bottom-0 before:w-2 before:h-2 before:bg-theme before:rotate-45 before:-left-1 before:animate-bottom_top before:animate-delay-3s">
+</div>
 
-            <div
-                class="relative w-px h-full border-r border-dashed line line3 border-slate-300 dark:border-metalBlack before:absolute before:w-2 before:h-2 before:bg-theme before:rotate-45 before:-left-1 before:animate-top_bottom before:animate-delay-3s">
-            </div>
+<div
+class="relative w-px h-full border-r border-dashed line line3 border-slate-300 dark:border-metalBlack before:absolute before:w-2 before:h-2 before:bg-theme before:rotate-45 before:-left-1 before:animate-top_bottom before:animate-delay-3s">
+</div>
 
-            <div
-                class="relative w-px h-full border-r border-dashed line line4 border-slate-300 dark:border-metalBlack before:absolute before:bottom-0 before:w-2 before:h-2 before:bg-theme before:rotate-45 before:-left-1 before:animate-bottom_top before:animate-delay-2s">
-            </div>
+<div
+class="relative w-px h-full border-r border-dashed line line4 border-slate-300 dark:border-metalBlack before:absolute before:bottom-0 before:w-2 before:h-2 before:bg-theme before:rotate-45 before:-left-1 before:animate-bottom_top before:animate-delay-2s">
+</div>
 
-        </div>
-    </div>
-    <!-- Ends Here -->
+</div>
+</div>
+<!-- Ends Here -->
 
-    <!-- Style Switcher Started -->
-    <div class="style-switcher fixed right-0 top-1/2 -translate-y-1/2 translate-x-[15rem] w-[15rem] [&.active]:translate-x-0 transition z-[9999]">
+<!-- Style Switcher Started -->
+<div class="style-switcher fixed right-0 top-1/2 -translate-y-1/2 translate-x-[15rem] w-[15rem] [&.active]:translate-x-0 transition z-[9999]">
 
-        <div class="toggle-btn absolute -left-15 w-15 h-15 bg-white dark:bg-nightBlack text-black dark:text-white flex-center cursor-pointer rounded-[.5rem_0_0_.5rem] select-none shadow-sm shadow-slate-400">
-            <span class="fal fa-cog fa-spin"></span>
-        </div>
+<div class="toggle-btn absolute -left-15 w-15 h-15 bg-white dark:bg-nightBlack text-black dark:text-white flex-center cursor-pointer rounded-[.5rem_0_0_.5rem] select-none shadow-sm shadow-slate-400">
+<span class="fal fa-cog fa-spin"></span>
+</div>
 
-        <div class="theme-select shadow-sm shadow-slate-400 px-6 py-4 bg-white dark:bg-nightBlack rounded-[0_0_0_.5rem]">
-            <h5 class="font-medium mb-2 !text-black dark:!text-white text-lg">Theme Mode</h5>
+<div class="theme-select shadow-sm shadow-slate-400 px-6 py-4 bg-white dark:bg-nightBlack rounded-[0_0_0_.5rem]">
+<h5 class="font-medium mb-2 !text-black dark:!text-white text-lg">Theme Mode</h5>
 
-            <div class="flex items-center justify-between gap-4">
-                <div class="switcher-input rounded-lg text-xl flex-[1] text-center transition cursor-pointer" data-theme="dark">
-                    <button class="border w-full px-4 py-4 flex flex-col gap-1 justify-center items-center [&.active]:bg-flashWhite [&.active]:text-black dark:text-white rounded-md" id="dark_theme" title="Active Dark Theme">
-                        <i class="fal fa-moon"></i>
-                    </button>
-                </div>
-                <div class="switcher-input rounded-lg text-lg flex-[1] text-center transition cursor-pointer" data-theme="light">
-                    <button class="border w-full px-4 py-4 flex flex-col gap-1 justify-center items-center [&.active]:bg-flashWhite [&.active]:text-black dark:text-white rounded-md" id="light_theme" title="Active Light Theme">
-                        <i class="fal fa-sun"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+<div class="flex items-center justify-between gap-4">
+<div class="switcher-input rounded-lg text-xl flex-[1] text-center transition cursor-pointer" data-theme="dark">
+    <button class="border w-full px-4 py-4 flex flex-col gap-1 justify-center items-center [&.active]:bg-flashWhite [&.active]:text-black dark:text-white rounded-md" id="dark_theme" title="Active Dark Theme">
+        <i class="fal fa-moon"></i>
+    </button>
+</div>
+<div class="switcher-input rounded-lg text-lg flex-[1] text-center transition cursor-pointer" data-theme="light">
+    <button class="border w-full px-4 py-4 flex flex-col gap-1 justify-center items-center [&.active]:bg-flashWhite [&.active]:text-black dark:text-white rounded-md" id="light_theme" title="Active Light Theme">
+        <i class="fal fa-sun"></i>
+    </button>
+</div>
+</div>
+</div>
 
-    </div>
-    <!-- Style Switcher End -->
+</div>
+<!-- Style Switcher End -->
 
-    <!-- Js Library Start -->
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/waypoints.min.js"></script>
-    <script src="assets/js/tw-elements.umd.min.js"></script>
-    <script src="assets/js/cd-headline.js"></script>
-    <script src="assets/js/jquery.counterup.min.js"></script>
-    <script src="assets/js/swiper-bundle.min.js"></script>
-    <script src="assets/js/scrollIt.min.js"></script>
-    <script src="assets/js/circle-progress.min.js"></script>
-    <script src="assets/js/script.js"></script>
-    <script src="assets/js/theme-mode.js"></script>
-    <!-- Js Library End -->
+<!-- Js Library Start -->
+<script src="assets/js/jquery-3.6.0.min.js"></script>
+<script src="assets/js/waypoints.min.js"></script>
+<script src="assets/js/tw-elements.umd.min.js"></script>
+<script src="assets/js/cd-headline.js"></script>
+<script src="assets/js/jquery.counterup.min.js"></script>
+<script src="assets/js/swiper-bundle.min.js"></script>
+<script src="assets/js/scrollIt.min.js"></script>
+<script src="assets/js/circle-progress.min.js"></script>
+<script src="assets/js/script.js"></script>
+<script src="assets/js/theme-mode.js"></script>
+<!-- Js Library End -->
 </body>
 
 
 <!-- Mirrored from minfotailwind.netlify.app/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 26 Feb 2024 21:52:07 GMT -->
 </html>
+

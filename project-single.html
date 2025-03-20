@@ -17,7 +17,7 @@
 
     <!-- Site Title
     ================================================== -->
-    <title>Hshrex - Portfolio</title>
+    <title>Hashir - Portfolio</title>
 
     <!-- Site Favicon
     ================================================== -->
