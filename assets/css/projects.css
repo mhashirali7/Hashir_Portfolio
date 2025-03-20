@@ -1,0 +1,39 @@
+*{
+    /* outline: red solid 1px; */
+}
+
+.c-projects-det-main{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.c-project-card{
+    display: flex !important;
+    gap: 2rem;
+}
+
+.c-project-img{
+    width: 30%;
+    height: 200px;
+    display: flex;
+}
+.c-project-img:hover img:first-child{
+    opacity: 0;
+}
+.c-project-img:hover img:last-child{
+    opacity: 1;
+    transform: translateX(-100%);
+}
+.c-project-img img{
+    width: 100%;
+    transition: all 0.4s linear;
+}
+.c-project-img img:last-child{
+    width: 100%;
+    opacity: 0;
+}
+
+.c-content-sec{
+    width: 70%;
+}
