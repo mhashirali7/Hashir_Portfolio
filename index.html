@@ -1126,24 +1126,6 @@
 
 
                 <!-- Portfolio Section Start -->
-                <!-- <?php
-                include "config.php";
-
-                $mysql = "
-                    SELECT 
-                        p.project_id, 
-                        p.project_name, 
-                        p.description,
-                        p.project_type,
-                        (SELECT image_path FROM Images WHERE project_id = p.project_id LIMIT 1) AS main_image,
-                        (SELECT technology_name FROM Technologies t
-                            JOIN ProjectTechnologies pt ON t.technology_id = pt.technology_id
-                            WHERE pt.project_id = p.project_id LIMIT 1) AS main_technology
-                    FROM Projects p
-                    ORDER BY p.created_at DESC
-                    LIMIT 4";
-                $result = mysqli_query($conn, $mysql);
-                ?> -->
                 <div data-scroll-index="5" id="portfolio"
                     class="py-5 xl:py-3.5 max-w-content xl:max-2xl:max-w-50rem max-xl:mx-auto xl:ml-auto">
 
@@ -1163,46 +1145,6 @@
                             </p>
                         </div><!--./section-title-->
 
-                        <!-- <div class="portfolio_wrapper grid sm:grid-cols-2 gap-4 lg:gap-7.5">
-                            <?php
-                            if (mysqli_num_rows($result) > 0) {
-                                while ($row = mysqli_fetch_assoc($result)) {
-                            ?>
-                            <div class="relative item md:col-span-1 z-1 group">
-                                <a class='flex items-center justify-center p-3 overflow-hidden border md:p-4 rounded-xl border-platinum dark:border-greyBlack' href="project-single.php?id=<?php echo $row['project_id']; ?>">
-                                    <div class="img-wrapper">
-                                        <img src="<?php echo htmlspecialchars($row['main_image']); ?>"
-                                            class="rounded-lg max-md:min-h-[17rem] max-md:w-full max-md:object-cover max-md:object-center transition-all duration-300 group-hover:blur-xs"
-                                            alt="portfolio">
-                                        <div
-                                            class="absolute inset-0 transition-all duration-300 opacity-0 overlay bg-gradient-to-t from-white dark:from-black to-transparent rounded-xl group-hover:opacity-100">
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="info text-center position-center max-lg:text-3xl text-lead font-semibold text-black dark:text-white leading-1.15 transition duration-500 scale-110 opacity-0 group-hover:scale-100 group-hover:opacity-100 relative z-10">
-                                        <?php echo htmlspecialchars($row['project_name']); ?>
-                                        <span>
-                                            <?php echo htmlspecialchars($row['main_technology']); ?>
-                                        </span>
-                                    </div>
-                                </a>
-                                <ul
-                                    class="absolute z-10 transition-all duration-500 opacity-0 md:top-9 md:right-9 top-6 right-6 group-hover:opacity-100">
-                                    <li>
-                                        <a href="#"
-                                            class="inline-flex items-center gap-2 px-5 py-3 text-sm font-light leading-none text-white transition-colors bg-metalBlack rounded-3xl hover:text-theme">
-                                            <?php echo htmlspecialchars($row['project_type']); ?>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <?php
-                                }
-                            } else {
-                                echo "<p>No projects found.</p>";
-                            }
-                            ?>
-                        </div> -->
                         <div class="portfolio_wrapper grid sm:grid-cols-2 gap-4 lg:gap-7.5">
                             <div class="relative item md:col-span-1 z-1 group">
                                 <a class='flex items-center justify-center p-3 overflow-hidden border md:p-4 rounded-xl border-platinum dark:border-greyBlack' href="project-single.html">
