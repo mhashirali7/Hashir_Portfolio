@@ -1444,12 +1444,6 @@
 
 
                 <!-- Testimonial Section Start -->
-                <?php
-                include "config.php";
-
-                $testimonial_sql = "SELECT * FROM testimonials";
-                $testimonial_result = mysqli_query($conn, $testimonial_sql);
-                ?>
                 <div data-scroll-index="7" id="testimonial"
                     class="py-5 xl:py-3.5 max-w-content xl:max-2xl:max-w-50rem max-xl:mx-auto xl:ml-auto">
 
@@ -1472,44 +1466,25 @@
                         <div class="mt-12 testimonial-slider">
                             <div class="swiper">
                                 <div class="swiper-wrapper">
-                                    <?php
-                                    if (mysqli_num_rows($testimonial_result) > 0) {
-                                        while ($testimonial = mysqli_fetch_assoc($testimonial_result)) {
-                                            $rating = $testimonial['rating'];
-                                    ?>
                                     <div class="swiper-slide">
                                         <div class="text-center slider-inner md:px-5">
                                             <div class="image flex-center">
-                                                <img src="<?php echo htmlspecialchars($testimonial['author_image']); ?>" alt="">
+                                                <img src="assets/img/testimonial/author1.png" alt="">
                                             </div>
                                             <div class="mt-6 mb-3 text-center rating text-lightOrange">
-                                                <?php for ($i = 0; $i < 5; $i++) {
-                                                    if ($i < $rating) {
-                                                        echo '<svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M14.4391 5.35656L10.1019 4.65667C10.0073 4.64115 9.92204 4.58373 9.87552 4.49217L7.86898 0.579903C7.69686 0.241595 7.21151 0.241595 7.03784 0.579903L5.0313 4.49217C4.98788 4.57753 4.9057 4.64115 4.80491 4.65667L0.467749 5.35656C0.0878407 5.41864 -0.0563694 5.87799 0.211892 6.14802L3.31008 9.26728C3.37521 9.33556 3.41088 9.43178 3.39537 9.53265L2.72239 13.8763C2.66346 14.2581 3.05113 14.539 3.39382 14.3667L7.31385 12.3819C7.39914 12.3384 7.50148 12.3353 7.59297 12.3819L11.513 14.3667C11.8572 14.5405 12.2434 14.2566 12.186 13.8763L11.5146 9.54662C11.4944 9.44885 11.5223 9.34332 11.5983 9.26728L14.6949 6.14802C14.9632 5.87799 14.8159 5.41709 14.4391 5.35656Z" fill="rgb(255, 217, 102)" />
-                                                        </svg>';
-                                                    } else {
-                                                        echo '<svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M14.4391 5.35656L10.1019 4.65667C10.0073 4.64115 9.92204 4.58373 9.87552 4.49217L7.86898 0.579903C7.69686 0.241595 7.21151 0.241595 7.03784 0.579903L5.0313 4.49217C4.98788 4.57753 4.9057 4.64115 4.80491 4.65667L0.467749 5.35656C0.0878407 5.41864 -0.0563694 5.87799 0.211892 6.14802L3.31008 9.26728C3.37521 9.33556 3.41088 9.43178 3.39537 9.53265L2.72239 13.8763C2.66346 14.2581 3.05113 14.539 3.39382 14.3667L7.31385 12.3819C7.39914 12.3384 7.50148 12.3353 7.59297 12.3819L11.513 14.3667C11.8572 14.5405 12.2434 14.2566 12.186 13.8763L11.5146 9.54662C11.4944 9.44885 11.5223 9.34332 11.5983 9.26728L14.6949 6.14802C14.9632 5.87799 14.8159 5.41709 14.4391 5.35656Z" fill="#cccccc" />
-                                                        </svg>';
-                                                    }
-                                                } ?>
+                                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M14.4391 5.35656L10.1019 4.65667C10.0073 4.64115 9.92204 4.58373 9.87552 4.49217L7.86898 0.579903C7.69686 0.241595 7.21151 0.241595 7.03784 0.579903L5.0313 4.49217C4.98788 4.57753 4.9057 4.64115 4.80491 4.65667L0.467749 5.35656C0.0878407 5.41864 -0.0563694 5.87799 0.211892 6.14802L3.31008 9.26728C3.37521 9.33556 3.41088 9.43178 3.39537 9.53265L2.72239 13.8763C2.66346 14.2581 3.05113 14.539 3.39382 14.3667L7.31385 12.3819C7.39914 12.3384 7.50148 12.3353 7.59297 12.3819L11.513 14.3667C11.8572 14.5405 12.2434 14.2566 12.186 13.8763L11.5146 9.54662C11.4944 9.44885 11.5223 9.34332 11.5983 9.26728L14.6949 6.14802C14.9632 5.87799 14.8159 5.41709 14.4391 5.35656Z" fill="rgb(255, 217, 102)" />
+                                                </svg>
                                             </div>
                                             <div class="text-sm md:text-[15px] leading-loose content">
-                                                <?php echo htmlspecialchars($testimonial['content']); ?>
+                                                Working with Hashir is a game-changer. Their coding expertise and commitment to quality make every project a success.
                                             </div>
                                             <div class="mt-5 text-center author">
-                                                <h6 class="text-lg font-medium text-black dark:text-white"><?php echo htmlspecialchars($testimonial['author_name']); ?></h6>
-                                                <p class="text-sm"><?php echo htmlspecialchars($testimonial['designation']); ?></p>
+                                                <h6 class="text-lg font-medium text-black dark:text-white">Alex Johnson</h6>
+                                                <p class="text-sm">Developer</p>
                                             </div>
                                         </div>
                                     </div>
-                                    <?php
-                                        }
-                                    } else {
-                                        echo "<p>No testimonials found.</p>";
-                                    }
-                                    ?>
                                 </div>
 
                                 <!-- Slider Controls Start -->
